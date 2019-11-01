@@ -1,0 +1,26 @@
+<h2>Mes appareils </h2>
+<!--async pour asnchronisé les données si par exemple il demande du temps pour les récupérés d'un serveur-->
+<p>Mis à jour : {{ lastUpdate | async | date }}</p>
+<ul class="list-group">
+
+  <!-- let i = index permet de rendre disponible l'index de l'objet  appareil  dans l'array  appareils .
+  Ensuite, il faut pouvoir capturer et travailler avec cette variable.
+  Pour cela, on ajoute un membre  index  au component en tant que  @Input()-->
+
+  <app-appareil  *ngFor="let appareil of appareils; let i = index"
+                 [appareilName]="appareil.name"
+                 [appareilStatus]="appareil.status"
+                 [index]="i"
+                 [id]="appareil.id"></app-appareil>
+  <br>
+  <button (click)="onAllumer()"
+          [disabled]="!isAuth"
+          class="btn btn-success">Tout allumer</button>
+  <button class="btn btn-danger"
+          [disabled]="!isAuth"
+          (click)="onEteindre()">Tout éteindre</button>
+  <button class="btn btn-primary"
+          (click)="onSave()">Enregistrer les appareils</button>
+  <button class="btn btn-primary"
+          (click)="onFetch()">Récupérer les appareils</button>
+</ul>
